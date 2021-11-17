@@ -89,17 +89,22 @@ $(document).ready(function(){
 				<code>
 
 -- Завдання № 1
-result allD y = (fst allD * fst y) / (snd allD * snd y)
+result allD y = do
+putStrLn (show (fst allD)  ++ " * " ++ show (fst y) ++ "/" ++ show (snd y) ++" = " ++ show(asd)++"\n"++show(fst allD)++" - " ++show(asd) ++" = " ++show((fst allD) - asd))
+    where asd = ((fst allD * fst y) `div` (snd allD * snd y))
 
-all_distance (x:y:xs)
-    | (x:y:xs) == [] = 0
-    | fst allD == 1 = result (snd allD * fst two_more, 1) y
-    | otherwise = result (((fst two_more / fst two_more) * (snd allD)), 1) y
+all_distance (x:y:xs) =
+    if fst allD == 1
+        then do
+        putStrLn (show (fst x)++ "/" ++ show (snd x) ++ " - " ++ show (fst y)++ "/" ++ show (snd y) ++ " = " ++ show ((fst x * snd y) - (fst y * snd x)) ++ "/" ++ show (snd x * snd y))
+        putStrLn (show (fst two_more)++ "/" ++ show (snd two_more) ++ " / " ++ show (fst allD)++ "/" ++ show (snd allD) ++ " = " ++ show (snd allD * fst two_more))
+        result (snd allD * fst two_more, 1) y
+    else result (((fst two_more `div` fst two_more) * (snd allD)), 1) y
     where
     allD = ((fst x * snd y) - (fst y * snd x),  (snd x * snd y))
     two_more = head xs
 
-main = print (all_distance [(1, 2), (1, 3), (2, 1)])
+main = all_distance [(1, 2), (1, 3), (2, 1)]
 
 				</code>
 			</pre>
@@ -131,13 +136,31 @@ algor (x:y:xs) =
     i = (fst x * snd y) + (snd x * fst y)
     sqrti = (fst x * fst y) + (snd x * snd y * (-1))
 
-output =
+output complex_numbers =
     if (snd (x !! 0)) < 0
         then putStrLn (show (fst (x !! 0)) ++ show (snd (x !! 0)) ++ "i" )
     else putStrLn (show (fst (x !! 0)) ++ "+" ++ show (snd (x !! 0)) ++ "i" )
-    where x = (algor [(1, -2), (1, 3)])
+    where x = (algor complex_numbers)
 
-main = output
+complex_numbers = [(1, -2), (1, 3)]
+
+output_complex (x:y:xs) iterator
+    | length (x:y:xs) == 2 = do
+    putStrLn(show(iterator+1)++"-е, комплексне число: " )
+    output [x]
+    putStrLn(show(iterator+2)++"-е, комплексне число: " )
+    output [y]
+    putStrLn("")
+    | otherwise = do
+    putStrLn(show(iterator+1)++"-е, комплексне число: " )
+    output [x]
+    output_complex (y:xs) (iterator+1)
+
+main = do
+    output_complex complex_numbers 0
+    putStrLn("Результат работи програми")
+    output complex_numbers
+
 
 				</code>
 			</pre>

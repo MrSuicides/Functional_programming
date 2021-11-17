@@ -32,8 +32,8 @@ $(document).ready(function(){
       <span>Функціональне програмування</span>
     </div>
     <div id="about">
-      <a href="#" title="Lab_1" >Лабораторна 1</a>
-      <a href="../index.html" title="Lab_2">Лабораторна 2</a>
+      <a href="../index.html" title="Lab_1" >Лабораторна 1</a>
+      <a href="#" title="Lab_2">Лабораторна 2</a>
       <a href="#" title="Lab_3">Лабораторна 3</a>
       <a href="#" title="Lab_4">Лабораторна 4</a>
       <a href="#" title="Lab_5">Лабораторна 5</a>
@@ -43,8 +43,8 @@ $(document).ready(function(){
     </div>
   </header>
 	<div id="top">
-		<h1>Лабораторна робота 2<br>
-			Рекурентні співвідношення для тригонометричних, експоненціальних функцій та ланцюгові дроби<br>
+		<h1>Лабораторна робота 1<br>
+			Використання рекурсії для організації повторювальних процесів<br>
 			Варіант 5
 		</h1>
     </div>
@@ -60,7 +60,7 @@ $(document).ready(function(){
 				<li><a href="#quest1">Завдання 1</a>
 					<ul>
 						<li><a href="#section1">Код програми</a></li>
-						<li><a href="#123">Результати роботи</a></li>
+						<li><a href="#result1">Результати роботи</a></li>
 						<li><a href="#result1_">Аналіз достовірності результатів</a></li>
 					</ul>
 				</li>
@@ -68,21 +68,20 @@ $(document).ready(function(){
 					<ul>
 						<li><a href="#section2">Код програми</a></li>
 						<li><a href="#result2">Результати роботи</a></li>
-                        <li><a href="#result2_">Аналіз достовірності результатів</a></li>
 					</ul>
 				</li>
 				<li><a href="#result">Висновки</a></li>
 			</ol>
 		</div>
-		<p><b id="meta">Мета:</b> Опанувати теоретичні основи застосування рекурентних співвідношень для обчислення тригонометричних, експоненціальних, степеневих функцій та розробити програми функціональними мовам програмування для обчислення їх значень <br>
+		<p><b id="meta">Мета:</b> Сформувати декларативне мислення в галузі програмування завдяки використанню чистих функцій, рекурсій замість циклів, запобіганню даних, що змінюються. Опанувати застосування рекурсивних функцій для обчислювальних процесів.<br>
 		<p style="margin-top: 1%"><b id="choice">Вибір середовища та мови функціонального програмування</b><br>
 		</p>
 		<p>В якості мови програмування була обрана Haskell, оскільки в ньому оптимально поєднанні імперативні і функціональні парадигми а також, легко будувати абстракції над даними і алгоритмами, що дозволяє думати про завдання, не відволікаючись на дрібниці. Середовищем було обрано Compile and Execute Haskell Online (Glorious Glasgow, v8.0.2)</p>
         <div id="quest1">
         <h4>Завдання 1</h4>
-		<p>Обчислити значення функції у, розвинувши функцію у ряд Тейлора. Аргумент х змінюється від -2 до 2 з кроком 0.5. Визначити похибку.
+		<p>Ввести з клавіатури два натуральних числа   m   та   n. Знайти їх найбільший спільний дільник, застосувавши алгоритм Евкліда (GCD - Greatest Common Divisor) для рекурентного співвідношення:
 		</p>
-		<img src="../media/2_.png">
+		<img src="../media/1_.png">
 		<div id="result1">
 
 		<h4>Код програми</h4>
@@ -91,57 +90,32 @@ $(document).ready(function(){
 				<code>
 
 -- Завдання № 1
-ln x eps n prev
-    | n == 0 = 0
-    | abs(result - prev) < eps = result
-    | otherwise = ln x eps (n + 1) result
-    where
-    sign = (-1) ** (n + 1)
-    operand = ((x - 1) ** n ) / n
-    result = prev + sign * operand
-
-cycle_ catalog eps iterator =
-    if length(catalog) == iterator
-        then putStrLn ""
-    else if (0 < index) && (index < 2)
+gcD a b n =
+    if (a == 0)
         then do
-        print(index, lnIndex, logIndex, lnIndex - logIndex)
-        cycle_ catalog eps (iterator + 1)
-    else if index >= 2
-        then do
-        print(index, lnIndex2, logIndex2, (lnIndex2 - logIndex2))
-        cycle_ catalog eps (iterator + 1)
-    else cycle_ catalog eps (iterator + 1)
-    where
-    index = head [catalog !! iterator]
-    lnIndex = ln index eps 1 0 + ln (index / 2) eps 1 0
-    logIndex =  log(index / 2) + log(index)
-    lnIndex2 = ln (index / 2 - 1) eps 1 0
-    logIndex2 = log(index / 2 - 1)
+            putStrLn ("Result: " ++ "\n"++"Найбільший спільний дільни {" ++ show b ++ "}"++"\n" ++"Глибина рекурсії {" ++ show n ++"}" ++ "\n")
+        else do
+            gcD (b `mod` a) a (n + 1)
+            putStrLn ("Your: " ++ show b ++ " " ++ show n )
 
-
-main = cycle_ [-1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3] 0.01 0
-
-
+main =  gcD 7 41 0
 
 				</code>
 			</pre>
 		</div>
 
 		<div title="result">
-			<h4 id="123">Результат</h4>
-			<img src="../media/2_1.png">
+			<h4>Результат</h4>
+			<img src="../media/1_1.png">
 			<p></p>
 			<h4 id="result1_">Аналіз достовірності результатів</h4>
-			<p><img src="../media/2_2_1.png"><img src="../media/2_1_.png">
-			</p>
+            <img src="../media/1_1_.png">
 		</div>
                    		</div>
                  </div>
         <div id="quest2">
 		<h4>Завдання 2</h4>
-		<p>Обчислити нескінчений ланцюговий дріб, задавши значення точності при виклику функції. </p>
-			<img src="../media/2_1_1.png">
+		<p>Увести з клавіатури натуральне число n. Вивести всі його цифри по одній в зворотному порядку, розділяючи їх пробілами або новими рядками. При розв'язанні цього завдання дозволена тільки рекурсія і цілочислова арифметика. Контрольний тест: введено число 123, отриманий результат: 3 2 1.</p>
         <div id="result2">
 		<h4>Код програми</h4>
 		<div id="section2">
@@ -149,18 +123,14 @@ main = cycle_ [-1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3] 0.01 0
 				<code>
 
 -- Завдання № 2
-circle :: Float -> Float-> Float -> Float
-circle eps depth prev
-    | abs(result - prev) < eps = result
-    | otherwise = circle eps (depth + 1) result
-    where result = 1 + 1 / recursion (depth)
+reversenumb tempo numb
+    | numb == 0 = tempo
+    | otherwise = reversenumb (tempo++show(numb `mod` 10)++" ")  (numb `div` 10)
 
-recursion depth =
-    if (depth == 0)
-        then 1
-        else 2 + 1 / recursion (depth-1)
-
-main = print(circle 0.01 0 0)
+main = do
+    let numb = 123
+    putStrLn("Bведено число " ++ show(numb))
+    putStrLn("Отриманий результат " ++ reversenumb "" numb)
 
 
 				</code>
@@ -168,16 +138,13 @@ main = print(circle 0.01 0 0)
 		</div>
 		<div class="result">
 			<h4>Результати</h4>
-			<img src="../media/2_2.png">
-            <p></p>
-			<h4 id="result2_">Аналіз достовірності результатів</h4>
-            <img src="../media/2_2_.png">
+			<img src="../media/1_2.png">
 		</div>
         </div>
         </div>
 		<h4>Висновки</h4>
         <div id="result">
-        <p>У ході виконання даної лабораторної роботи було застосуванно рекурентні співвідношеня для обчислення тригонометричних, експоненціальних, степеневих функцій та розроблено програми функціональними мовою програмування для обчислення їх значень. </p>
+        <p>У ході виконання даної лабораторної роботи було опановано застосування рекурсивних функцій для обчислювальних процесів.</p>
 	    </div>
         </div>
     </div>

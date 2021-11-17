@@ -93,17 +93,23 @@ c)	Знайти суму елементів на непарних позиція
 				<code>
 
 -- Завдання № 1
-test list x = reverse (drop x list)
+test list x = take x list ++ (reverse (drop x list))
 
 odds [] = []
 odds [x] = [x]
 odds (e1:e2:xs) = e1 : odds xs
 
+
 main = do
-    print([2 ^ x | x <- [0..9]]) --5.1
-    print(odds [2 ^ x | x <- [0..9]]) --5.1 (a)
-    print(test [2 ^ x | x <- [0..9]] 3) --5.2 (b)
-    print(sum (odds [2 ^ x | x <- [0..9]]))
+    let list = [2 ^ x | x <- [0..9]]
+    let list1 = odds list
+    let list2 = test list1 3
+    let list3 = sum (odds list2)
+    putStrLn("Cписок чисел, що є степенями двійки: " ++ show(list)) --5.1
+    putStrLn("a) Видалені із списку усі елементи, які знаходились на парних позиціях: " ++ show(list1)) --5.1 (a)
+    putStrLn("b) Інвертувано список, починаючи із позиції 3-ї: " ++ show(list2)) --5.2 (b)
+    putStrLn("c) Знайтдено суму елементів на непарних позиціях списку: " ++ show(list3))
+
 
 				</code>
 			</pre>
@@ -129,20 +135,28 @@ main = do
 -- Завдання № 2
 cycle_ list result iterator min_ =
     if length(list) == iterator
-        then putStrLn ("ID покупця обслуговування якого потребує найменше часу " ++ show min_)
+        then putStrLn ("ID покупця обслуговування якого потребує найменше часу " ++ show min_++", час обслуговування "++ show(list !! (iterator-1)!! 1)++" хвилин")
     else do
         if min_ > ((list !! iterator) !! 1)
             then do
-            putStrLn ("ID покупця " ++ show ((list !! iterator) !! 0) ++ ", час перебування " ++ show (((list !! iterator) !! 1) + result))
+            putStrLn ("ID покупця " ++ show ((list !! iterator) !! 0) ++ " був "++show(iterator+1)++"-й в черзі, час перебування в черзі " ++ show (((list !! iterator) !! 1) + result))
             cycle_ list (result + ((list !! iterator) !! 1)) (iterator + 1) ((list !! iterator) !! 0)
         else do
-        putStrLn ("ID покупця " ++ show ((list !! iterator) !! 0) ++ ", час перебування " ++ show (((list !! iterator) !! 1) + result))
+        putStrLn ("ID покупця " ++ show ((list !! iterator) !! 0) ++ " був "++show(iterator+1)++"-й в черзі, час перебування в черзі " ++ show (((list !! iterator) !! 1) + result))
         cycle_ list (result + ((list !! iterator) !! 1)) (iterator + 1) min_
 
 
 list_ = [[123, 6], [122, 12], [133, 2], [111, 12], [132, 1]]
 
-main = cycle_ list_ 0 0 ((list_ !! 0) !! 1)
+output iterator list
+    | length(list) == iterator = putStrLn("\n"++"Результат роботи програми: ")
+    | otherwise = do
+    putStrLn("ID покупця: "++show((list!!iterator)!! 0 ) ++" прийшов" ++show(iterator+1)++"-й в черзі, час обслуговування в черзі "++ show((list!!iterator)!!1)++" хвилин")
+    output (iterator + 1) list
+
+main = do
+    output 0 list_
+    cycle_ list_ 0 0 ((list_ !! 0) !! 1)
 
 				</code>
 			</pre>
