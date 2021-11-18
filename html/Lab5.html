@@ -129,6 +129,7 @@ main = all_distance [(1, 2), (1, 3), (2, 1)]
 				<code>
 
 -- Завдання № 2
+algor :: [(Int, Int)] -> [(Int, Int)]
 algor [] = []
 algor [x] = [x]
 algor (x:y:xs) =
@@ -141,28 +142,30 @@ algor (x:y:xs) =
 
 output complex_numbers =
     if (snd (x !! 0)) < 0
-        then putStrLn (show (fst (x !! 0)) ++ show (snd (x !! 0)) ++ "i" )
-    else putStrLn (show (fst (x !! 0)) ++ "+" ++ show (snd (x !! 0)) ++ "i" )
-    where x = (algor complex_numbers)
+        then putStrLn (show (fst (x !! 0)) ++ show (snd (x !! 0)) ++ "i "++show(x)++" "++patsyuk++"*(cos("++vitaly++") + sin("++vitaly++")*i) ")
+    else putStrLn (show (fst (x !! 0)) ++ "+" ++ show (snd (x !! 0)) ++ "i " ++show(x)++" "++patsyuk++"*(cos("++vitaly++") + sin("++vitaly++")*i) ")
+    where
+    x = (algor complex_numbers)
+    xx = x !! 0
+    vitaly = take 4 $ show(atan((fromIntegral(snd xx)) / (fromIntegral(fst xx))))
+    patsyuk = take 4 $ show(sqrt((fromIntegral(fst xx)^2) + (fromIntegral(snd xx)^2)))
 
-complex_numbers = [(1, -2), (1, 3)]
+complex_numbers = [(1, -2), (1, 3), (1, 3)]
 
-output_complex (x:y:xs) iterator
-    | length (x:y:xs) == 2 = do
+output_complex [x] iterator = do
     putStrLn(show(iterator+1)++"-е, комплексне число: " )
     output [x]
-    putStrLn(show(iterator+2)++"-е, комплексне число: " )
-    output [y]
-    putStrLn("")
-    | otherwise = do
+
+output_complex (x:xs) iterator = do
     putStrLn(show(iterator+1)++"-е, комплексне число: " )
     output [x]
-    output_complex (y:xs) (iterator+1)
+    output_complex (xs) (iterator+1)
 
 main = do
     output_complex complex_numbers 0
-    putStrLn("Результат работи програми")
+    putStrLn("Результат рoботи програми")
     output complex_numbers
+
 
 
 				</code>
@@ -182,5 +185,6 @@ main = do
 	    </div>
         </div>
     </div>
+
 </body>
 </html>
