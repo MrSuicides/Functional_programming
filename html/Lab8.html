@@ -131,8 +131,9 @@ inp list string iterator
 
 main = do
     let list = (circle (fst input) (snd input) (fst input) [])
-    print(list)
-    print(inp list "" ((length list) - 1))
+    putStrLn("Перший многочлен "++inp (fst input) "" ((length (fst input)) - 1))
+    putStrLn("Другий многочлен "++inp (snd input) "" ((length (snd input)) - 1))
+    putStrLn("НСД двух многочленів "++inp list "" ((length list) - 1))
     writeFile "/myfiles/myfiles.txt" (inp list "" ((length list) - 1))
     readFile "/uploads/myfiles.txt"
 
