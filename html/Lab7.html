@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functional Programming</title>
+  <link rel="stylesheet" href="../css/lab6.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+$(document).ready(function(){
+  $("a").on('click', function(event) {
+
+    if (this.hash !== "") {
+      event.preventDefault();
+
+      var hash = this.hash;
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        window.location.hash = hash;
+      });
+    }
+  });
+});
+</script>
+</head>
+<body>
+  <header>
+    <div id="logo">
+      <span>Функціональне програмування</span>
+    </div>
+    <div id="about">
+      <a href="https://mrsuicides.github.io/functional_programming/html/Lab1.html" title="Lab_1" >Лабораторна 1</a>
+      <a href="https://mrsuicides.github.io/functional_programming/html/Lab2.html" title="Lab_2">Лабораторна 2</a>
+      <a href="#" title="Lab_3">Лабораторна 3</a>
+      <a href="https://mrsuicides.github.io/functional_programming/html/Lab4.html" title="Lab_4">Лабораторна 4</a>
+      <a href="https://mrsuicides.github.io/functional_programming/html/Lab5.html" title="Lab_5" >Лабораторна 5</a>
+      <a href="https://mrsuicides.github.io/functional_programming/html/Lab6.html" title="Lab_6">Лабораторна 6</a>
+      <a href="../index.html" title="Lab_7">Лабораторна 7</a>
+      <a href="https://mrsuicides.github.io/functional_programming/html/Lab8.html" title="Lab_8">Лабораторна 8</a>
+    </div>
+  </header>
+	<div id="top">
+		<h1>Лабораторна робота 7<br>
+			Обробка рядків та файлів мовами функціонального програмування<br>
+			Варіант 5
+		</h1>
+    </div>
+  <div>
+
+  </div>
+	<div id="text">
+        `       <div id="test">
+			<h4>Зміст</h4>
+			<ol>
+				<li><a href="#meta">Мета</a></li>
+				<li><a href="#choice">Вибір середовища та мови функціонального програмування</a></li>
+				<li><a href="#quest1">Завдання 1</a>
+					<ul>
+						<li><a href="#section1">Код програми</a></li>
+                        <li><a href="#result1">Результати роботи</a></li>
+					</ul>
+				</li>
+                <li><a href="#result">Висновки</a></li>
+			</ol>
+		</div>
+		<p><b id="meta">Мета:</b> Опанувати теоретичні основи обробки рядків та текстових файлів мовами функціонального програмування та розробити програми їх реалізації <br>
+		<p style="margin-top: 1%"><b id="choice">Вибір середовища та мови функціонального програмування</b><br>
+		</p>
+		<p>В якості мови програмування була обрана Haskell, оскільки в ньому оптимально поєднанні імперативні і функціональні парадигми а також, легко будувати абстракції над даними і алгоритмами, що дозволяє думати про завдання, не відволікаючись на дрібниці. Середовищем було обрано Compile and Execute Haskell Online (Glorious Glasgow, v8.0.2)</p>
+        <div id="quest1">
+        <h4>Завдання 1</h4>
+		<p>Записати в текстовий файл n речень тексту, що задаються програмою на функціональній мові програмування. Речення закінчується символом «точка». Зчитати рядки із створеного програмою файлу, вивести їх на екран. Якщо перше слово речення починається з маленької літери, то замінити її на велику. Записати в новий текстовий файл результат обробки тексту
+		</p>
+		<div id="result1">
+
+		<h4>Код програми</h4>
+		<div id="section1">
+			<pre>
+				<code>
+
+-- Завдання № 1
+import qualified Data.Char as Char
+import Data.List
+
+capitalized :: String -> String
+capitalized [] = []
+capitalized (head:tail) = Char.toUpper head : lowered tail
+  where
+    lowered [] = []
+    lowered (head:tail) = Char.toLower head : lowered tail
+
+wordsWhen p s =  case dropWhile p s of
+                      "" -> []
+                      s' -> w : wordsWhen p s''
+                            where (w, s'') = break p s'
+main = do
+  s <- readFile "/uploads/myfiles.txt"
+  let a = map capitalized (wordsWhen (=='.') s)
+  writeFile "/myfiles/myfiles.txt" (intercalate "." a)
+
+				</code>
+			</pre>
+		</div>
+		<div title="result">
+			<h4>Результат</h4>
+			<img src="../media/7_1.png">
+            <img src="../media/7_1_.png">
+		</div>
+                   		</div>
+                 </div>
+		<h4>Висновки</h4>
+        <div id="result">
+        <p>У ході виконання даної лабораторної роботи було пановано теоретичні основи обробки рядків та текстових файлів мовами функціонального програмування та розробилено програми їх реалізації</p>
+	    </div>
+        </div>
+    </div>
+
+</body>
+</html>
